@@ -65,7 +65,7 @@ export default function Dashboard() {
 				</Button>
 			</div>
 			<h2 className="text-left mb-4">Stories</h2>
-			<Story />
+			<Story user={currentUser} />
 		</>
 	);
 }
