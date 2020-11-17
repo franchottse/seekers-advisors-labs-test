@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import firebase from 'firebase/app';
 
-export default function StoryPoint({ story, user }) {
+export default function StoryPoint({ story, user, func }) {
 	const [option, setOption] = useState('1');
 	const [isSubmited, setSubmited] = useState(false);
 
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
 		setSubmited(true);
 		let em = user.email.replaceAll('.', ',');
-		firebase
+		await firebase
 			.firestore()
 			.collection('stories')
 			.doc(story.id)
 			.update({
 				[`users.${em}`]: option,
 			});
+		func();
 		console.log('selected story point: ' + option);
 	}
 
